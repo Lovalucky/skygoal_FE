@@ -26,3 +26,12 @@ export const login = async (userData) => {
     throw error;
   }
 };
+
+export const getUsers = async () => {
+  try {
+    const response = await product_url.get('/api/v1/users'); 
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

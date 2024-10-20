@@ -1,0 +1,25 @@
+.user-details-container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  .user-table th, .user-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .user-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .error {
+    color: red;
+  }
+  

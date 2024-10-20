@@ -29,7 +29,7 @@ function Login() {
       setSuccess('Login Successfully...');
       setFormData({ email: '', password: '' });
 
-      navigate('/register');  
+      navigate('/users');  
     } catch (err) {
       console.error('Login error:', err);
       setError(err.response?.data?.message || err.message);  
