@@ -9,10 +9,17 @@ function Users() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await getUsers();  
-        setUsers(response.data);  
+        const token = localStorage.getItem('token'); 
+
+        if (!token) {
+          setError('You are not authorized to view this page.');
+          return;
+        }
+
+        const usersData = await getUsers(token);  
+        setUsers(usersData);  
       } catch (err) {
-        setError('Failed to fetch user details.');
+        setError('Failed to fetch user details. ' + (err.response?.data?.message || err.message));
         console.error('Error fetching user data:', err);
       }
     };
@@ -32,7 +39,6 @@ function Users() {
               <th>Username</th>
               <th>Email</th>
               <th>Status</th>
-              <th>Registration Date</th>
             </tr>
           </thead>
           <tbody>
@@ -42,7 +48,6 @@ function Users() {
                 <td>{user.username}</td>
                 <td>{user.email}</td>
                 <td>{user.status}</td>
-                <td>{user.createdon}</td> 
               </tr>
             ))}
           </tbody>

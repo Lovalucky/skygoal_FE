@@ -3,7 +3,7 @@ import logo from '../asserts/images.png';
 import './login.css';
 import { login } from '../services/api';
 import { useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 function Login() {
   const [formData, setFormData] = useState({
     email: '',
@@ -22,17 +22,18 @@ function Login() {
     e.preventDefault();
     setError(null);
     setSuccess(null);
-
+  
     try {
-      const response = await login(formData);  
-      console.log('Login response:', response);
+      const response = await login(formData); 
+      const token = response.data.token;  
+      localStorage.setItem('token', token); 
+  
       setSuccess('Login Successfully...');
       setFormData({ email: '', password: '' });
-
-      navigate('/users');  
+      navigate('/users'); 
     } catch (err) {
       console.error('Login error:', err);
-      setError(err.response?.data?.message || err.message);  
+      setError(err.response?.data?.message || err.message);
     }
   };
 
@@ -69,7 +70,11 @@ function Login() {
 
       {error && <p className="error">{error}</p>}
       {success && <p className="success">{success}</p>}
+      <p>
+        Do Not Register? <Link to="/register">Register here</Link>
+      </p>
     </div>
+    
   );
 }
 

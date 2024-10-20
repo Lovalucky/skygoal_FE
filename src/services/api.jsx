@@ -16,7 +16,7 @@ export const registerUser = async (userData) => {
 };
 export const login = async (userData) => {
   try {
-    const response = await product_url.post('/api/v1/users/login', userData);  // Login API call
+    const response = await product_url.post('/api/v1/users/login', userData);  
     
     if (response.data.token) {
       localStorage.setItem('user', JSON.stringify(response.data));
@@ -27,11 +27,23 @@ export const login = async (userData) => {
   }
 };
 
-export const getUsers = async () => {
+// export const getUsers = async () => {
+//   try {
+//     const response = await product_url.get('/api/v1/users'); 
+//     return response.data;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
+export const getUsers = async (token) => {
   try {
-    const response = await product_url.get('/api/v1/users'); 
-    return response.data;
+    const response = await product_url.get('/api/v1/users', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.data; 
   } catch (error) {
+    console.error('Error fetching users:', error.response ? error.response.data : error.message);
     throw error;
-  }
-};
+  }}
